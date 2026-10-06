@@ -63,7 +63,10 @@ seule commande** grâce à Docker.
 git clone https://github.com/Buzz30Gotcho/budgetflow.git
 cd budgetflow
 
-# 2. Construire et démarrer toute la stack
+# 2. Créer le fichier de configuration (.env) à partir du modèle
+cp .env.example .env
+
+# 3. Construire et démarrer toute la stack
 docker compose up --build
 ```
 
