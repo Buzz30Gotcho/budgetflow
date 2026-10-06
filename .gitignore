@@ -1,0 +1,25 @@
+# Build
+target/
+dist/
+build/
+
+# Node / Angular
+node_modules/
+.angular/
+npm-debug.log*
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+*.env
+.env.local
