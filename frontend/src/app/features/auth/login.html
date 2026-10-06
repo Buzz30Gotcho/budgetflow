@@ -1,0 +1,60 @@
+<div class="min-h-screen grid lg:grid-cols-2">
+  <!-- Présentation de l'app -->
+  <div class="hidden lg:flex flex-col justify-center bg-gradient-to-br from-indigo-600 to-violet-700 text-white p-12">
+    <h1 class="text-4xl font-bold mb-3">💸 BudgetFlow</h1>
+    <p class="text-xl text-indigo-100 mb-6">Reprenez le contrôle de votre argent.</p>
+    <p class="text-indigo-100 mb-8 max-w-md">
+      BudgetFlow vous aide à suivre vos revenus et vos dépenses, à les organiser par
+      catégorie, à fixer des budgets mensuels et à visualiser où part votre argent
+      grâce à des graphiques clairs.
+    </p>
+    <ul class="space-y-3 text-indigo-50">
+      <li class="flex items-center gap-3">✅ Suivez vos revenus et dépenses en quelques clics</li>
+      <li class="flex items-center gap-3">📊 Visualisez vos dépenses par catégorie et par mois</li>
+      <li class="flex items-center gap-3">🎯 Fixez des budgets et suivez votre progression</li>
+      <li class="flex items-center gap-3">🔒 Vos données restent privées et sécurisées</li>
+    </ul>
+  </div>
+
+  <!-- Formulaire -->
+  <div class="flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-sm">
+      <div class="lg:hidden text-center mb-6">
+        <h1 class="text-2xl font-bold text-indigo-600">💸 BudgetFlow</h1>
+        <p class="text-slate-500 text-sm">Suivez vos dépenses et gardez le contrôle de votre budget.</p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+        <h2 class="text-xl font-bold text-slate-800 mb-1">Connexion</h2>
+        <p class="text-slate-500 text-sm mb-6">Accédez à votre tableau de bord</p>
+
+        <form (ngSubmit)="submit()" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+            <input type="email" name="email" [(ngModel)]="email" required
+                   class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Mot de passe</label>
+            <input type="password" name="password" [(ngModel)]="password" required
+                   class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+          </div>
+
+          @if (error()) {
+            <p class="text-sm text-red-600">{{ error() }}</p>
+          }
+
+          <button type="submit" [disabled]="loading()"
+                  class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-lg py-2 font-medium">
+            {{ loading() ? 'Connexion…' : 'Se connecter' }}
+          </button>
+        </form>
+
+        <p class="text-center text-sm text-slate-500 mt-6">
+          Pas encore de compte ?
+          <a routerLink="/register" class="text-indigo-600 font-medium">Créer un compte</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
