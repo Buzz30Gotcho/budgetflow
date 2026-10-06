@@ -68,43 +68,40 @@ Le back-end suit une architecture en couches classique : **Controller** (routes 
 **Service** (logique métier) → **Repository** (accès base de données). Les tables sont
 générées automatiquement par Hibernate à partir des entités Java.
 
-## 🚀 Lancer le projet en local
+## 🚀 Lancer le projet
 
-### Prérequis
-- Java 17+
-- Node.js 22+
-- Docker
+### Option 1 — Avec Docker 🐳 (recommandé)
 
-### 1. Base de données (PostgreSQL via Docker)
+Une seule commande lance la **base de données**, le **back-end** et le **front-end** :
 
 ```bash
-docker run -d --name budgetflow-db \
-  -e POSTGRES_DB=budgetflow \
-  -e POSTGRES_USER=budgetflow \
-  -e POSTGRES_PASSWORD=budgetflow \
-  -p 5433:5432 postgres:16
+docker compose up --build
 ```
 
-### 2. Back-end (Spring Boot)
+➡️ Application disponible sur **http://localhost:4200**
+*(les données sont conservées grâce à un volume Docker)*
+
+### Option 2 — En local (manuel)
+
+**Prérequis** : Java 17+, Node.js 22+, Docker
 
 ```bash
+# 1. Base de données
+docker run -d --name budgetflow-db \
+  -e POSTGRES_DB=budgetflow -e POSTGRES_USER=budgetflow -e POSTGRES_PASSWORD=budgetflow \
+  -p 5433:5432 postgres:16
+
+# 2. Back-end (API sur http://localhost:8080)
 cd backend
 DB_URL=jdbc:postgresql://localhost:5433/budgetflow \
 DB_USERNAME=budgetflow DB_PASSWORD=budgetflow \
 ./mvnw spring-boot:run
-```
 
-➡️ API disponible sur **http://localhost:8080**
-
-### 3. Front-end (Angular)
-
-```bash
+# 3. Front-end (app sur http://localhost:4200)
 cd frontend
 npm install
 npx ng serve
 ```
-
-➡️ Application disponible sur **http://localhost:4200**
 
 ## 📡 Aperçu de l'API
 
@@ -142,7 +139,6 @@ budgetflow/
 
 - 🏦 **Import bancaire automatique** via une API d'agrégation (Open Banking / DSP2, type Powens ou Tink), pour éviter la saisie manuelle
 - 🔁 **Transactions récurrentes** (loyer, salaire ajoutés automatiquement chaque mois)
-- 🐳 **Docker Compose** pour lancer toute la stack en une commande
 - ✅ Tests automatisés et intégration continue (GitHub Actions)
 
 ## 👤 Auteur
