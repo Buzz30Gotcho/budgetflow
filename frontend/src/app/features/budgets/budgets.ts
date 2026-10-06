@@ -1,23 +1,18 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Chart, registerables } from 'chart.js';
 import { BudgetService } from '../../core/budget.service';
 import { CategoryService } from '../../core/category.service';
 import { Budget, Category } from '../../core/models';
-
-Chart.register(...registerables);
 
 @Component({
   selector: 'app-budgets',
   imports: [FormsModule, DecimalPipe],
   templateUrl: './budgets.html',
 })
-export class Budgets implements AfterViewInit, OnDestroy {
+export class Budgets implements OnInit {
   private budgetService = inject(BudgetService);
   private categoryService = inject(CategoryService);
-
-  @ViewChild('chart') chartRef!: ElementRef<HTMLCanvasElement>;
 
   private now = new Date();
   year = this.now.getFullYear();
@@ -31,22 +26,13 @@ export class Budgets implements AfterViewInit, OnDestroy {
   categoryId: number | null = null;
   amount: number | null = null;
 
-  private chart?: Chart;
-
-  ngAfterViewInit() {
+  ngOnInit() {
     this.load();
     this.categoryService.list().subscribe(list => this.categories.set(list));
   }
 
-  ngOnDestroy() {
-    this.chart?.destroy();
-  }
-
   load() {
-    this.budgetService.list(this.year, this.month).subscribe(list => {
-      this.budgets.set(list);
-      this.renderChart(list);
-    });
+    this.budgetService.list(this.year, this.month).subscribe(list => this.budgets.set(list));
   }
 
   add() {
@@ -93,25 +79,5 @@ export class Budgets implements AfterViewInit, OnDestroy {
   private highlight(id: number) {
     this.highlightId.set(id);
     setTimeout(() => this.highlightId.set(null), 2500);
-  }
-
-  private renderChart(budgets: Budget[]) {
-    this.chart?.destroy();
-    if (budgets.length === 0) return;
-    this.chart = new Chart(this.chartRef.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: budgets.map(b => b.categoryName),
-        datasets: [
-          { label: 'Budget', data: budgets.map(b => b.amount), backgroundColor: '#C7D2FE' },
-          { label: 'Dépensé', data: budgets.map(b => b.spent), backgroundColor: '#6366F1' },
-        ],
-      },
-      options: {
-        indexAxis: 'y',
-        plugins: { legend: { position: 'bottom' } },
-        scales: { x: { beginAtZero: true } },
-      },
-    });
   }
 }
