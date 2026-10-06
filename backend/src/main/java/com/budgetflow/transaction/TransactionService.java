@@ -100,7 +100,9 @@ public class TransactionService {
     }
 
     private void importLine(User user, String line) {
-        String[] cols = line.split(",", -1);
+        // Accepte le point-virgule (standard Excel/LibreOffice en français) ou la virgule.
+        String separator = line.contains(";") ? ";" : ",";
+        String[] cols = line.split(separator, -1);
         LocalDate date = LocalDate.parse(cols[0].trim());
         String description = cols[1].trim();
         BigDecimal amount = new BigDecimal(cols[2].trim().replace(",", "."));

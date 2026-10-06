@@ -88,10 +88,10 @@ export class Transactions implements OnInit {
 
   downloadTemplate() {
     const content =
-      'date,description,montant,type,categorie\n' +
-      '2026-10-01,Salaire,1200.00,INCOME,\n' +
-      '2026-10-03,Carrefour,45.90,EXPENSE,Courses\n' +
-      '2026-10-05,Loyer,700.00,EXPENSE,Logement\n';
+      'date;description;montant;type;categorie\n' +
+      '2026-10-01;Salaire;1200.00;INCOME;\n' +
+      '2026-10-03;Carrefour;45.90;EXPENSE;Courses\n' +
+      '2026-10-05;Loyer;700.00;EXPENSE;Logement\n';
     const blob = new Blob([content], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
