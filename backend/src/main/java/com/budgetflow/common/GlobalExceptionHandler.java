@@ -11,7 +11,6 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Transforme les exceptions en réponses JSON homogènes. */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

@@ -38,13 +38,14 @@ public class DashboardService {
                         .map(p -> new DashboardSummary.CategorySlice(p.getName(), p.getColor(), p.getTotal()))
                         .toList();
 
+        // Revenus/dépenses des 6 derniers mois pour la courbe.
         List<DashboardSummary.MonthlyPoint> trend = new ArrayList<>();
         for (int i = TREND_MONTHS - 1; i >= 0; i--) {
             YearMonth m = period.minusMonths(i);
-            LocalDate mFrom = m.atDay(1);
-            LocalDate mTo = m.atEndOfMonth();
-            BigDecimal mIncome = transactionRepository.sumByTypeAndPeriod(userId, TransactionType.INCOME, mFrom, mTo);
-            BigDecimal mExpense = transactionRepository.sumByTypeAndPeriod(userId, TransactionType.EXPENSE, mFrom, mTo);
+            BigDecimal mIncome = transactionRepository.sumByTypeAndPeriod(
+                    userId, TransactionType.INCOME, m.atDay(1), m.atEndOfMonth());
+            BigDecimal mExpense = transactionRepository.sumByTypeAndPeriod(
+                    userId, TransactionType.EXPENSE, m.atDay(1), m.atEndOfMonth());
             trend.add(new DashboardSummary.MonthlyPoint(m.toString(), mIncome, mExpense));
         }
 

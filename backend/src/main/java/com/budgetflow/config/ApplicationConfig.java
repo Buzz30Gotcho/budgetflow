@@ -1,7 +1,6 @@
 package com.budgetflow.config;
 
 import com.budgetflow.user.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +17,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-/**
- * Beans d'infrastructure (auth, encodage, CORS). Séparés de {@link SecurityConfig}
- * pour éviter une dépendance circulaire avec le filtre JWT.
- */
+// Beans d'auth/CORS séparés de SecurityConfig pour éviter une dépendance circulaire avec le filtre JWT.
 @Configuration
-@RequiredArgsConstructor
 public class ApplicationConfig {
 
     @Bean

@@ -3,7 +3,6 @@ package com.budgetflow.common;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-/** Exception métier portant un code HTTP, traduite en réponse JSON par le handler global. */
 @Getter
 public class ApiException extends RuntimeException {
 

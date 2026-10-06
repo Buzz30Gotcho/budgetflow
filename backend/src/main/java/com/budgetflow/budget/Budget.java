@@ -7,10 +7,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-/**
- * Budget mensuel fixé pour une catégorie donnée (ex : 400 € de courses en mars 2026).
- * Le mois est stocké en clair (year + month) pour des requêtes simples.
- */
+// Budget mensuel d'une catégorie. Le mois est stocké en clair (year + month).
 @Entity
 @Table(name = "budgets",
         uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "category_id", "year", "month"}))

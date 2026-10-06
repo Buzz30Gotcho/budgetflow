@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/** Lit le header "Authorization: Bearer ..." et authentifie l'utilisateur pour la requête. */
+// Lit le header "Authorization: Bearer ..." et authentifie l'utilisateur pour la requête.
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -32,15 +32,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        final String header = request.getHeader("Authorization");
+        String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith(PREFIX)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String token = header.substring(PREFIX.length());
+        String token = header.substring(PREFIX.length());
         try {
-            final String email = jwtService.extractUsername(token);
+            String email = jwtService.extractUsername(token);
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails user = userDetailsService.loadUserByUsername(email);
                 if (jwtService.isTokenValid(token, user)) {
@@ -51,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception ignored) {
-            // Token invalide/expiré : on laisse passer sans authentifier -> 401 plus loin.
+            // Token invalide ou expiré : on continue sans authentifier.
         }
 
         filterChain.doFilter(request, response);

@@ -8,7 +8,6 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/** Mouvement d'argent (revenu ou dépense) enregistré par un utilisateur. */
 @Entity
 @Table(name = "transactions")
 @Getter

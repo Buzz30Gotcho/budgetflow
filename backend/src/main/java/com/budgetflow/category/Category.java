@@ -4,7 +4,6 @@ import com.budgetflow.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-/** Catégorie de transaction (ex : Courses, Loyer, Loisirs), propre à un utilisateur. */
 @Entity
 @Table(name = "categories")
 @Getter
@@ -21,7 +20,7 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    /** Couleur hexadécimale utilisée pour les graphiques (ex : #4F46E5). */
+    // Couleur hexadécimale utilisée par les graphiques du dashboard.
     @Column(nullable = false)
     @Builder.Default
     private String color = "#6366F1";

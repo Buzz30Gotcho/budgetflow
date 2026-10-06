@@ -12,7 +12,7 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.function.Function;
 
-/** Génération et validation des tokens JWT (signature HMAC-SHA256). */
+// Génère et valide les tokens JWT (signature HMAC-SHA256).
 @Service
 public class JwtService {
 
@@ -41,8 +41,7 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String token, UserDetails user) {
-        final String username = extractUsername(token);
-        return username.equals(user.getUsername()) && !isExpired(token);
+        return extractUsername(token).equals(user.getUsername()) && !isExpired(token);
     }
 
     private boolean isExpired(String token) {

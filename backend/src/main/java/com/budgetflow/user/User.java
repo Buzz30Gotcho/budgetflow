@@ -10,10 +10,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Utilisateur de l'application. Implémente {@link UserDetails} pour s'intégrer
- * directement à Spring Security (l'identifiant de connexion est l'email).
- */
+// Implémente UserDetails pour s'intégrer à Spring Security (login = email).
 @Entity
 @Table(name = "users")
 @Getter
@@ -48,8 +45,6 @@ public class User implements UserDetails {
     void onCreate() {
         this.createdAt = Instant.now();
     }
-
-    // --- UserDetails ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
