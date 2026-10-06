@@ -3,7 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TransactionService } from '../../core/transaction.service';
 import { CategoryService } from '../../core/category.service';
-import { Category, ImportResult, Transaction, TransactionType } from '../../core/models';
+import { Category, Transaction, TransactionType } from '../../core/models';
 
 @Component({
   selector: 'app-transactions',
@@ -27,9 +27,6 @@ export class Transactions implements OnInit {
 
   incomeCount = computed(() => this.incomes().length);
   expenseCount = computed(() => this.expenses().length);
-
-  importing = signal(false);
-  importResult = signal<ImportResult | null>(null);
 
   type: TransactionType = 'EXPENSE';
   amount: number | null = null;
@@ -63,41 +60,5 @@ export class Transactions implements OnInit {
 
   remove(id: number) {
     this.transactionService.delete(id).subscribe(() => this.loadTransactions());
-  }
-
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
-    this.importing.set(true);
-    this.importResult.set(null);
-    this.transactionService.importCsv(file).subscribe({
-      next: (res) => {
-        this.importResult.set(res);
-        this.importing.set(false);
-        input.value = '';
-        this.loadTransactions();
-      },
-      error: () => {
-        this.error.set('Import impossible');
-        this.importing.set(false);
-        input.value = '';
-      },
-    });
-  }
-
-  downloadTemplate() {
-    const content =
-      'date;description;montant;type;categorie\n' +
-      '2026-10-01;Salaire;1200.00;INCOME;\n' +
-      '2026-10-03;Carrefour;45.90;EXPENSE;Courses\n' +
-      '2026-10-05;Loyer;700.00;EXPENSE;Logement\n';
-    const blob = new Blob([content], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'modele-budgetflow.csv';
-    a.click();
-    URL.revokeObjectURL(url);
   }
 }

@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from './api.config';
-import { ImportResult, Transaction, TransactionType } from './models';
+import { Transaction, TransactionType } from './models';
 
 export interface TransactionBody {
   type: TransactionType;
@@ -30,11 +30,5 @@ export class TransactionService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${API_URL}/transactions/${id}`);
-  }
-
-  importCsv(file: File): Observable<ImportResult> {
-    const form = new FormData();
-    form.append('file', file);
-    return this.http.post<ImportResult>(`${API_URL}/transactions/import`, form);
   }
 }

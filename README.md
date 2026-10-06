@@ -32,7 +32,6 @@ responsive, et déploiement local **en une commande** grâce à Docker.
 - 🏷️ **Catégories** personnalisables (nom + couleur), éditables en ligne
 - 🎯 **Budgets mensuels** par catégorie avec barre de progression et alertes
 - 📊 **Tableau de bord** : solde, répartition des dépenses (camembert), évolution sur 6 mois
-- 📥 **Import CSV** : ajouter plusieurs transactions d'un coup depuis un fichier
 
 ## 🖼️ Aperçu
 
@@ -150,7 +149,6 @@ appels `/api` vers le backend.
 | `POST` | `/api/auth/login` | Connexion (renvoie un token JWT) |
 | `GET` / `POST` / `PUT` / `DELETE` | `/api/categories` | Gestion des catégories |
 | `GET` / `POST` / `PUT` / `DELETE` | `/api/transactions` | Gestion des transactions |
-| `POST` | `/api/transactions/import` | Import CSV de transactions |
 | `GET` | `/api/dashboard` | Données agrégées du tableau de bord |
 | `GET` / `POST` / `PUT` / `DELETE` | `/api/budgets` | Gestion des budgets mensuels |
 

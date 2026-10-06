@@ -37,11 +37,6 @@ export interface Budget {
   month: number;
 }
 
-export interface ImportResult {
-  imported: number;
-  errors: string[];
-}
-
 export interface DashboardSummary {
   totalIncome: number;
   totalExpense: number;

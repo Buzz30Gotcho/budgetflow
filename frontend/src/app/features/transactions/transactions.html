@@ -64,32 +64,6 @@
   }
 </div>
 
-<div class="bg-white rounded-xl border border-slate-200 p-4 mb-6">
-  <div class="flex flex-wrap items-center justify-between gap-3">
-    <div>
-      <h2 class="text-sm font-semibold text-slate-700">Importer plusieurs transactions</h2>
-      <p class="text-xs text-slate-400">Téléchargez le modèle, remplissez-le avec vos transactions, puis importez-le.</p>
-    </div>
-    <div class="flex items-center gap-3">
-      <button type="button" (click)="downloadTemplate()" class="text-sm text-indigo-600 hover:text-indigo-700">
-        Télécharger le modèle
-      </button>
-      <label class="bg-slate-800 hover:bg-slate-900 text-white rounded-lg px-4 py-2 text-sm font-medium cursor-pointer">
-        {{ importing() ? 'Import…' : 'Choisir un fichier' }}
-        <input type="file" accept=".csv" (change)="onFileSelected($event)" class="hidden" [disabled]="importing()" />
-      </label>
-    </div>
-  </div>
-  @if (importResult(); as res) {
-    <p class="text-sm text-green-600 mt-3">
-      {{ res.imported }} transaction(s) importée(s).
-      @if (res.errors.length > 0) {
-        <span class="text-amber-600">{{ res.errors.length }} ligne(s) ignorée(s).</span>
-      }
-    </p>
-  }
-</div>
-
 <div class="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
   @for (t of transactions(); track t.id) {
     <div class="flex items-center justify-between px-4 py-3">

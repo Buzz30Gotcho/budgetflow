@@ -1,6 +1,5 @@
 package com.budgetflow.transaction;
 
-import com.budgetflow.transaction.dto.ImportResult;
 import com.budgetflow.transaction.dto.TransactionRequest;
 import com.budgetflow.transaction.dto.TransactionResponse;
 import com.budgetflow.user.User;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,11 +46,5 @@ public class TransactionController {
     public ResponseEntity<Void> delete(@AuthenticationPrincipal User user, @PathVariable Long id) {
         transactionService.delete(user, id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/import")
-    public ImportResult importCsv(@AuthenticationPrincipal User user,
-                                  @RequestParam("file") MultipartFile file) {
-        return transactionService.importCsv(user, file);
     }
 }
