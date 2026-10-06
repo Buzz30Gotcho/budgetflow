@@ -48,61 +48,65 @@ responsive, et déploiement local **en une commande** grâce à Docker.
 
 ## 🚀 Lancer l'application en local
 
-L'application complète (base de données + back-end + front-end) se lance avec **une
-seule commande** grâce à Docker.
-
-### Prérequis
-- [Docker](https://www.docker.com/) **et** Docker Compose (inclus dans Docker Desktop)
-- Git (pour cloner le projet)
-
-### Démarrage
+Deux façons de lancer le projet : **avec Docker** (le plus simple) ou **sans Docker**
+(pratique pour le développement). Commencer par récupérer le projet :
 
 ```bash
-# 1. Récupérer le projet
 git clone https://github.com/Buzz30Gotcho/budgetflow.git
 cd budgetflow
+```
 
-# 2. Créer le fichier de configuration (.env) à partir du modèle
+### Option 1 — Avec Docker 🐳 (recommandé)
+
+Toute la stack (base de données + back-end + front-end) démarre en **une seule commande**.
+
+**Prérequis** : [Docker](https://www.docker.com/) + Docker Compose.
+
+```bash
+# Créer le fichier de configuration à partir du modèle
 cp .env.example .env
 
-# 3. Construire et démarrer toute la stack
+# Construire et démarrer toute la stack
 docker compose up --build
 ```
 
-➡️ Ouvrir ensuite **http://localhost:4200** dans le navigateur, puis créer un compte.
+➡️ Ouvrir **http://localhost:4200**, puis créer un compte.
 
-> 💾 Les données sont conservées dans un volume Docker (elles survivent au redémarrage).
-
-### Arrêter l'application
-
+Pour arrêter :
 ```bash
 docker compose down        # arrête l'application
 docker compose down -v     # arrête et supprime aussi les données
 ```
 
-<details>
-<summary>⚙️ Lancer sans Docker (pour le développement)</summary>
+> 💾 Les données sont conservées dans un volume Docker (elles survivent au redémarrage).
 
-**Prérequis** : Java 17+, Node.js 22+, Docker (pour la base).
+### Option 2 — Sans Docker ⚙️ (manuel)
 
+**Prérequis** : Java 17+, Node.js 22+, Docker (uniquement pour lancer la base de données).
+
+Lancer chaque partie dans un terminal séparé :
+
+**1. Base de données** (PostgreSQL)
 ```bash
-# 1. Base de données
 docker run -d --name budgetflow-db \
   -e POSTGRES_DB=budgetflow -e POSTGRES_USER=budgetflow -e POSTGRES_PASSWORD=budgetflow \
   -p 5433:5432 postgres:16
+```
 
-# 2. Back-end (http://localhost:8080)
+**2. Back-end** — API sur http://localhost:8080
+```bash
 cd backend
 DB_URL=jdbc:postgresql://localhost:5433/budgetflow \
 DB_USERNAME=budgetflow DB_PASSWORD=budgetflow \
 ./mvnw spring-boot:run
+```
 
-# 3. Front-end (http://localhost:4200)
+**3. Front-end** — application sur http://localhost:4200
+```bash
 cd frontend
 npm install
 npx ng serve
 ```
-</details>
 
 ## 🏗️ Architecture
 
