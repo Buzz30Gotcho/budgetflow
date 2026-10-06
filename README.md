@@ -37,6 +37,19 @@ moderne et responsive.
 - 📥 **Import CSV** : ajoutez plusieurs transactions d'un coup depuis un fichier
 - 📈 **Totaux et compteurs** automatiques (revenus, dépenses, solde)
 
+## 🖼️ Aperçu
+
+### Tableau de bord
+![Tableau de bord](docs/screenshots/dashboard.png)
+
+| Connexion | Transactions |
+|:---:|:---:|
+| ![Connexion](docs/screenshots/login.png) | ![Transactions](docs/screenshots/transactions.png) |
+
+| Catégories | Budgets |
+|:---:|:---:|
+| ![Catégories](docs/screenshots/categories.png) | ![Budgets](docs/screenshots/budgets.png) |
+
 ## 🛠️ Technologies utilisées
 
 **Langages**
