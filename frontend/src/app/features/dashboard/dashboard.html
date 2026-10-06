@@ -1,0 +1,31 @@
+<h1 class="text-xl font-bold text-slate-800">Tableau de bord</h1>
+<p class="text-sm text-slate-500 mb-4">Vue d'ensemble de vos revenus, dépenses et de leur répartition ce mois-ci.</p>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+  <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <p class="text-sm text-slate-500">Revenus du mois</p>
+    <p class="text-2xl font-bold text-green-600">{{ summary()?.totalIncome ?? 0 | number:'1.2-2' }} €</p>
+  </div>
+  <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <p class="text-sm text-slate-500">Dépenses du mois</p>
+    <p class="text-2xl font-bold text-red-600">{{ summary()?.totalExpense ?? 0 | number:'1.2-2' }} €</p>
+  </div>
+  <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <p class="text-sm text-slate-500">Solde</p>
+    <p class="text-2xl font-bold text-slate-800">{{ summary()?.balance ?? 0 | number:'1.2-2' }} €</p>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <h2 class="text-sm font-semibold text-slate-700 mb-3">Dépenses par catégorie</h2>
+    <canvas #pie></canvas>
+    @if (summary() && summary()!.expenseByCategory.length === 0) {
+      <p class="text-sm text-slate-400 text-center mt-4">Aucune dépense ce mois-ci.</p>
+    }
+  </div>
+  <div class="bg-white rounded-xl border border-slate-200 p-4">
+    <h2 class="text-sm font-semibold text-slate-700 mb-3">Revenus / dépenses (6 mois)</h2>
+    <canvas #trend></canvas>
+  </div>
+</div>
